@@ -95,7 +95,7 @@ const ShareModal = ({
   const handleShare = () => {
     // Generate emoji grid
     let shareText = `Almadle ${new Date().toLocaleDateString()}\n`;
-    shareText += `Gereden in ${guesses.length}/${MAX_ATTEMPTS}\n\n`;
+    shareText += `Voltooid in ${guesses.length}/${MAX_ATTEMPTS}\n\n`;
 
     guesses.forEach(g => {
       // logic for emojis: 
