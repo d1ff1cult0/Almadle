@@ -32,4 +32,13 @@ body {
   color: var(--color-alma-text);
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
+<<<<<<< Updated upstream
 }
+=======
+}
+
+.pixelated-canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+>>>>>>> Stashed changes

@@ -1,11 +1,15 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
+<<<<<<< Updated upstream
 import { Shrikhand, Caveat } from 'next/font/google';
 import Image from 'next/image';
 import almaFoodData from '../data/alma_food.json';
 import { Leaf, Wheat, Euro, TriangleAlert, ChefHat, Search, Share2, X, ChevronUp, ChevronDown, Check } from 'lucide-react';
 import { getDailyDish } from './utils/dailyDish';
+=======
+import { Kaushan_Script } from 'next/font/google';
+>>>>>>> Stashed changes
 
 const shrikhand = Shrikhand({
   weight: '400',
@@ -21,7 +25,6 @@ const caveat = Caveat({
 type Dish = {
   id: number;
   name: string;
-  image_url: string;
   category: string;
   diet: string;
   carb_source: string;
@@ -46,6 +49,7 @@ type GuessResult = {
 
 const MAX_ATTEMPTS = 6;
 
+<<<<<<< Updated upstream
 // Pixelated Image Component using Server-Side API
 const PixelatedImage = ({ attempt, dateKey }: { attempt: number; dateKey: string }) => {
   // Use current timestamp to bust cache if needed, but next/image should handle caching.
@@ -170,39 +174,185 @@ const ShareModal = ({
 
         </div>
       </div>
+=======
+// Pixelated Image Component
+const PixelatedImage = ({
+  refreshKey,
+  attempt,
+  playing,
+}: {
+  refreshKey: string;
+  attempt: number;
+  playing: boolean;
+}) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const bitmapRef = useRef<ImageBitmap | null>(null);
+  const BASE_W = 350;
+  const BASE_H = 250;
+  const tempCanvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const controller = new AbortController();
+
+    async function load() {
+      setImageLoaded(false);
+      if (bitmapRef.current) {
+        bitmapRef.current.close();
+        bitmapRef.current = null;
+      }
+
+      const res = await fetch(`/api/game/image?t=${encodeURIComponent(refreshKey)}`, {
+        signal: controller.signal,
+        cache: 'no-store',
+        credentials: 'same-origin',
+      });
+      if (!res.ok) return;
+      const blob = await res.blob();
+      if (cancelled) return;
+      const bitmap = await createImageBitmap(blob);
+      if (cancelled) {
+        bitmap.close();
+        return;
+      }
+      bitmapRef.current = bitmap;
+      setImageLoaded(true);
+    }
+
+    load().catch(() => {});
+
+    return () => {
+      cancelled = true;
+      controller.abort();
+      if (bitmapRef.current) {
+        bitmapRef.current.close();
+        bitmapRef.current = null;
+      }
+    };
+  }, [refreshKey]);
+
+  useEffect(() => {
+    if (imageLoaded && canvasRef.current && bitmapRef.current) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+      const img = bitmapRef.current;
+
+      if (!ctx) return;
+
+      const dpr = window.devicePixelRatio || 1;
+      // Make the backing store match the device pixel ratio to avoid display-time smoothing.
+      canvas.width = Math.floor(BASE_W * dpr);
+      canvas.height = Math.floor(BASE_H * dpr);
+      canvas.style.width = `${BASE_W}px`;
+      canvas.style.height = `${BASE_H}px`;
+
+      ctx.imageSmoothingEnabled = false;
+      // Reset then scale to draw in CSS pixels.
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, BASE_W, BASE_H);
+
+      if (!playing) {
+        // After unlock, draw as-is (server returns the original bytes).
+        ctx.drawImage(img, 0, 0, BASE_W, BASE_H);
+        return;
+      }
+
+      // Extra safety: client-side pixelation (downsample -> upsample) so it always looks pixelated.
+      if (!tempCanvasRef.current) tempCanvasRef.current = document.createElement('canvas');
+      const temp = tempCanvasRef.current;
+      const tctx = temp.getContext('2d');
+      if (!tctx) return;
+
+      const stepIdx = Math.min(5, Math.max(0, attempt));
+      // Match server/original difficulty curve (attempt 0 starts around 8x6).
+      const smallWSteps = [8, 10, 13, 18, 29, 70];
+      const smallW = smallWSteps[stepIdx]!;
+      const smallH = Math.max(1, Math.round((smallW * BASE_H) / BASE_W));
+
+      temp.width = smallW;
+      temp.height = smallH;
+      tctx.imageSmoothingEnabled = false;
+      tctx.clearRect(0, 0, smallW, smallH);
+      tctx.drawImage(img, 0, 0, smallW, smallH);
+
+      ctx.drawImage(temp, 0, 0, smallW, smallH, 0, 0, BASE_W, BASE_H);
+    }
+  }, [imageLoaded, attempt, playing]);
+
+  return (
+    <div className="mb-8 shadow-lg border-4 border-[#1e3a8a] rounded-sm bg-white overflow-hidden w-full max-w-[350px] h-[250px] relative">
+      <canvas
+        ref={canvasRef}
+        width={BASE_W}
+        height={BASE_H}
+        className="w-full h-full object-cover pixelated-canvas"
+      />
+      {!imageLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+>>>>>>> Stashed changes
     </div>
   );
 };
 
 export default function Home() {
-  const [targetDish, setTargetDish] = useState<Dish | null>(null);
+  const [dishes, setDishes] = useState<Dish[]>([]);
+  const [answerName, setAnswerName] = useState<string | null>(null);
   const [guesses, setGuesses] = useState<GuessResult[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [gameState, setGameState] = useState<'playing' | 'won' | 'lost'>('playing');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [gameReady, setGameReady] = useState(false);
 
   const [modalOpen, setModalOpen] = useState(false);
 
   // Initialize game
   useEffect(() => {
+<<<<<<< Updated upstream
     // Pick daily dish seeded
     const dish = getDailyDish();
     setTargetDish(dish as Dish);
+=======
+    let cancelled = false;
+    async function load() {
+      // Start (or resume) a server-side game session (target + attempts live in httpOnly cookie)
+      // Force a fresh game on each page load to avoid stale "unlocked" sessions showing clear images.
+      await fetch('/api/game/start?new=1', { cache: 'no-store' }).catch(() => {});
+      if (!cancelled) setGameReady(true);
+
+      const res = await fetch('/api/dishes');
+      if (!res.ok) return;
+      const data = (await res.json()) as Dish[];
+      if (cancelled) return;
+      setDishes(data);
+    }
+    load().catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+>>>>>>> Stashed changes
   }, []);
 
   const filteredDishes = useMemo(() => {
     if (!searchTerm) return [];
+<<<<<<< Updated upstream
     return almaFoodData
       .filter((dish) =>
         dish.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+=======
+    return dishes
+      .filter((dish) => 
+        dish.name.toLowerCase().includes(searchTerm.toLowerCase()) && 
+>>>>>>> Stashed changes
         !guesses.some((g) => g.dish.id === dish.id)
       )
       .slice(0, 5); // Limit limit results
-  }, [searchTerm, guesses]);
+  }, [searchTerm, guesses, dishes]);
 
   const handleGuess = (dish: Dish) => {
-    if (!targetDish || gameState !== 'playing') return;
+    if (gameState !== 'playing') return;
 
+<<<<<<< Updated upstream
     const priceDiff = Math.abs(dish.price_student - targetDish.price_student);
     const targetAllergens = targetDish.allergens?.length || 0;
     const guessAllergens = dish.allergens?.length || 0;
@@ -235,6 +385,26 @@ export default function Home() {
       setGameState('lost');
       setModalOpen(true); // Open modal on loss
     }
+=======
+    // Optimistically close dropdown/input
+    setSearchTerm('');
+    setDropdownOpen(false);
+
+    fetch('/api/game/guess', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ guessId: dish.id }),
+      cache: 'no-store',
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: null | { guess?: GuessResult; state?: 'playing' | 'won' | 'lost'; target?: { name: string } | null }) => {
+        if (!data?.guess || !data.state) return;
+        setGuesses((prev) => [...prev, data.guess as GuessResult]);
+        setGameState(data.state);
+        if (data.state !== 'playing' && data.target?.name) setAnswerName(data.target.name);
+      })
+      .catch(() => {});
+>>>>>>> Stashed changes
   };
 
   const getCellColor = (status: 'correct' | 'close' | 'wrong' | boolean) => {
@@ -243,11 +413,12 @@ export default function Home() {
     return 'bg-white border-alma-text text-alma-text';
   };
 
-  if (!targetDish) return null;
+  if (dishes.length === 0) return null;
 
   return (
     <main className="w-full min-h-screen flex flex-col items-center py-10 px-4 bg-alma-bg text-alma-text selection:bg-alma-accent/30">
 
+<<<<<<< Updated upstream
       <h1 className={`${shrikhand.className} text-[5.5rem] leading-tight mb-8 text-alma-text drop-shadow-[2px_2px_0px_rgba(255,255,255,0.5)]`}>Almadle</h1>
 
       <PixelatedImage
@@ -262,6 +433,15 @@ export default function Home() {
         targetDish={targetDish}
         gameState={gameState}
       />
+=======
+      {gameReady && (
+        <PixelatedImage 
+          refreshKey={`${gameState}:${guesses.length}`}
+          attempt={guesses.length}
+          playing={gameState === 'playing'}
+        />
+      )}
+>>>>>>> Stashed changes
 
       {/* Game Over Message */}
       {gameState !== 'playing' && (
@@ -269,10 +449,20 @@ export default function Home() {
           <h2 className={`text-3xl font-bold mb-2 ${shrikhand.className}`}>
             {gameState === 'won' ? 'Proficiat!' : 'Helaas!'}
           </h2>
+<<<<<<< Updated upstream
           <p className="text-lg mb-4">Het gerecht was: <strong>{targetDish.name}</strong></p>
           <button
             onClick={() => window.location.reload()}
             className="px-6 py-2 bg-alma-text text-white rounded-lg font-bold hover:bg-opacity-90 transition-colors shadow-md"
+=======
+          <p className="text-lg">Het gerecht was: <strong>{answerName ?? '...'}</strong></p>
+          <button 
+            onClick={async () => {
+              await fetch('/api/game/start?new=1', { cache: 'no-store' }).catch(() => {});
+              window.location.reload();
+            }}
+            className="mt-4 px-6 py-2 bg-alma-text text-white rounded hover:bg-opacity-90"
+>>>>>>> Stashed changes
           >
             Nog eens spelen
           </button>

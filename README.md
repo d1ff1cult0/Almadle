@@ -2,6 +2,12 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Environment
+
+This app uses a signed, httpOnly cookie to store the game session (target dish + attempts). Set a secret for signing:
+
+- Copy `env.example.txt` to `.env.local` and change `ALMADLE_SECRET` to a random string.
+
 First, run the development server:
 
 ```bash
