@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Quivr data export => weet ni of we de csv mogen leaken van quivr dus voor de zekerheid
+/data/Dishes Export 14-01-2026

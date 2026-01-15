@@ -1,188 +1,772 @@
 [
-    {
-        "id": 1,
-        "name": "Fish stick met remouladesaus",
-        "image_url": "/images/704510-Fish-sticks-remoulade-spinaziepuree.png.webp",
-        "category": "Hoofdgerecht",
-        "diet": "Vis",
-        "carb_source": "Aardappel",
-        "price_student": 5.60,
-        "env_score": "C",
-        "allergens": [
-            "Gluten",
-            "Vis",
-            "Melk",
-            "Ei",
-            "Mosterd"
-        ]
-    },
-    {
-        "id": 2,
-        "name": "Quinoa risotto",
-        "image_url": "/images/110213-Minestronesoep-vegan.png.webp",
-        "category": "Hoofdgerecht",
-        "diet": "Vegan",
-        "carb_source": "Granen",
-        "price_student": 5.60,
-        "env_score": "A",
-        "allergens": [
-            "Selderij"
-        ]
-    },
-    {
-        "id": 3,
-        "name": "Spaghetti bolognaise",
-        "image_url": "/images/704164-Spaghetti-Bolognaise-2_2023-05-09-153822_mzzk.png.webp",
-        "category": "Hoofdgerecht",
-        "diet": "Vlees",
-        "carb_source": "Pasta",
-        "price_student": 5.85,
-        "env_score": "C",
-        "allergens": [
-            "Gluten",
-            "Ei",
-            "Selderij"
-        ]
-    },
-    {
-        "id": 4,
-        "name": "Koninginnenhapje met slaatje en puree",
-        "image_url": "/images/704200-Koninginnenhapje-slaatje-en-puree_2023-05-09-153429_kryf.png.webp",
-        "category": "Hoofdgerecht",
-        "diet": "Gevogelte",
-        "carb_source": "Aardappel",
-        "price_student": 7.95,
-        "env_score": "B",
-        "allergens": [
-            "Gluten",
-            "Melk",
-            "Ei",
-            "Selderij"
-        ]
-    },
-    {
-        "id": 5,
-        "name": "Lasagne",
-        "image_url": "/images/704155-Lasagna.png.webp",
-        "category": "Hoofdgerecht",
-        "diet": "Vlees",
-        "carb_source": "Pasta",
-        "price_student": 5.60,
-        "env_score": "B",
-        "allergens": [
-            "Gluten",
-            "Soja",
-            "Selderij"
-        ]
-    },
-    {
-        "id": 6,
-        "name": "Famous Alma groenteburger",
-        "image_url": "/images/704476-Famous-Alma-groenteburger-salade-en-wedges.png.webp",
-        "category": "Hoofdgerecht",
-        "diet": "Vegan",
-        "carb_source": "Aardappel",
-        "price_student": 5.60,
-        "env_score": "A",
-        "allergens": [
-            "Gluten",
-            "Soja",
-            "Mosterd",
-            "Selderij"
-        ]
-    },
-    {
-        "id": 7,
-        "name": "Famous Almaburger",
-        "image_url": "/images/704475-Famous-Almaburger-winters-salade-en-wedges.png.webp",
-        "category": "Hoofdgerecht",
-        "diet": "Vlees",
-        "carb_source": "Aardappel",
-        "price_student": 5.60,
-        "env_score": "C",
-        "allergens": [
-            "Gluten",
-            "Ei",
-            "Melk",
-            "Mosterd",
-            "Sesamzaad"
-        ]
-    },
-    {
-        "id": 8,
-        "name": "Broccolisoep",
-        "image_url": "/images/110217-Broccolisoep-vegan.png.webp",
-        "category": "Soep",
-        "diet": "Vegan",
-        "carb_source": "Geen",
-        "price_student": 2.90,
-        "env_score": "A",
-        "allergens": [
-            "Selderij"
-        ]
-    },
-    {
-        "id": 9,
-        "name": "Bowl Caesar salade",
-        "image_url": "/images/20250722_092034.png.webp",
-        "category": "Bowl",
-        "diet": "Vis & Vlees",
-        "carb_source": "Brood",
-        "price_student": 5.60,
-        "env_score": "B",
-        "allergens": [
-            "Gluten",
-            "Ei",
-            "Vis",
-            "Melk",
-            "Mosterd"
-        ]
-    },
-    {
-        "id": 10,
-        "name": "Hongaarse goulash met bulgur",
-        "image_url": "/images/704362-Vegetarische-Hongaarse-goulash-met-bulgur.png.webp",
-        "category": "Hoofdgerecht",
-        "diet": "Vegetarisch",
-        "carb_source": "Granen",
-        "price_student": 5.60,
-        "env_score": "A",
-        "allergens": [
-            "Gluten",
-            "Selderij"
-        ]
-    },
-    {
-        "id": 11,
-        "name": "Groenteburger met gnocchi",
-        "image_url": "/images/704493-Groenteburger-met-gnocchi-s.png.webp",
-        "category": "Hoofdgerecht",
-        "diet": "Vegetarisch",
-        "carb_source": "Pasta",
-        "price_student": 5.60,
-        "env_score": "A",
-        "allergens": [
-            "Gluten",
-            "Ei",
-            "Melk"
-        ]
-    },
-    {
-        "id": 12,
-        "name": "Worstenbroodje",
-        "image_url": "/images/100041-Worstenbroodje.png.webp",
-        "category": "Snack",
-        "diet": "Vlees",
-        "carb_source": "Brood",
-        "price_student": 2.90,
-        "env_score": "D",
-        "allergens": [
-            "Gluten",
-            "Ei",
-            "Melk",
-            "Soja",
-            "Selderij",
-            "Mosterd"
-        ]
-    }
+  {
+    "id": 1,
+    "name": " gratis bij spaghetti (dierlijke oorsprong)\"",
+    "image_url": "images\\100271-Geraspte-kaas-gratis-bij-spaghetti-dierlijke-oorsprong_2023-05-09-144953_hzad.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Geen",
+    "price_student": 0,
+    "allergens": ["Melk"]
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti bolognaise",
+    "image_url": "images\\704165-Vegan-Spaghetti-bolognaise_2023-05-09-122815_kpsy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Pasta",
+    "price_student": 5.85,
+    "allergens": ["Gluten", "Sulfiet", "Selderij", "Soya"]
+  },
+  {
+    "id": 3,
+    "name": "Burrito met nacho's en salsa",
+    "image_url": "images\\704645.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Wrap",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Sulfiet"]
+  },
+  {
+    "id": 4,
+    "name": "Gevogelte chipolata met appelmoes en kroketten",
+    "image_url": "images\\704370-Gevogeltechipolata-appelmoes-kroketten_2023-05-09-155214_ccoo.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten"]
+  },
+  {
+    "id": 5,
+    "name": "Koninginnenhapje met slaatje en puree",
+    "image_url": "images\\704200-Koninginnenhapje-slaatje-en-puree_2023-05-09-153429_kryf.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 7.95,
+    "allergens": ["Ei", "Gluten", "Melk", "Selderij"]
+  },
+  {
+    "id": 6,
+    "name": " fris slaatje en krokant lookbrood\"",
+    "image_url": "images\\20250722_092034.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Brood",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd"]
+  },
+  {
+    "id": 7,
+    "name": "Alma puebla burger van de grill",
+    "image_url": "images\\IMG_2680-copy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Melk", "Sesam"]
+  },
+  {
+    "id": 8,
+    "name": "Alma puebla bohemian Burger",
+    "image_url": "images\\IMG_2683-copy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Melk", "Soya", "Sesam"]
+  },
+  {
+    "id": 9,
+    "name": "Quinoa risotto",
+    "image_url": "images\\s704648.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Selderij"]
+  },
+  {
+    "id": 10,
+    "name": "Famous Almaburger salade en wedges",
+    "image_url": "images\\704475-Famous-Almaburger-winters-salade-en-wedges.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk", "Vis", "Sesam"]
+  },
+  {
+    "id": 11,
+    "name": "Famous Alma groenteburger salade en wedges",
+    "image_url": "images\\704476-Famous-Alma-groenteburger-salade-en-wedges.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Sesam"]
+  },
+  {
+    "id": 12,
+    "name": "Groenten Lasagne",
+    "image_url": "images\\704155-Lasagna.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Selderij"]
+  },
+  {
+    "id": 13,
+    "name": "Groentenpizza",
+    "image_url": "images\\704680.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Brood",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Melk", "Sulfiet", "Selderij", "Soya"]
+  },
+  {
+    "id": 14,
+    "name": "Pasta met Griekse twist",
+    "image_url": "images\\704511-Vega-penne-carbonara-met-rode-biet-spekjes-erwten-raketsla-s.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Soya"]
+  },
+  {
+    "id": 15,
+    "name": "Lasagne",
+    "image_url": "images\\704155-Lasagna.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Selderij"]
+  },
+  {
+    "id": 16,
+    "name": "Groente-lasagne met piccolo",
+    "image_url": "images\\704356-Vegetarische-lasagne-met-piccolo.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk"]
+  },
+  {
+    "id": 17,
+    "name": "Tikka massala met quorn",
+    "image_url": "images\\704513-Tikka-Masala-s.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Soya", "Schaaldieren"]
+  },
+  {
+    "id": 18,
+    "name": "Risotto met champignons",
+    "image_url": "images\\704494-Risotto-met-champignons_2024-04-16-202740_rgif.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Melk", "Sulfiet", "Pindanoten"]
+  },
+  {
+    "id": 19,
+    "name": "Vegetarische balletjes met gebroken bonen en aardappelen",
+    "image_url": "images\\704636new.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Sulfiet"]
+  },
+  {
+    "id": 20,
+    "name": "Hongaarse goulash met bulgur",
+    "image_url": "images\\704362-Vegetarische-Hongaarse-goulash-met-bulgur.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Selderij", "Soya"]
+  },
+  {
+    "id": 21,
+    "name": "Balletjes in tomatensaus gebroken bonen en puree",
+    "image_url": "images\\704195-Balletjes-in-tomatensaus-gebroken-bonen-puree_2023-05-09-153409_wuvl.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Melk"]
+  },
+  {
+    "id": 22,
+    "name": "Marokkaanse tajine met Griekse pasta",
+    "image_url": "images\\704209-Vegetarische-Tajine.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Gluten"]
+  },
+  {
+    "id": 23,
+    "name": "Angelo's kapsalon",
+    "image_url": "images\\s704647.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Melk", "Selderij", "Soya"]
+  },
+  {
+    "id": 24,
+    "name": "Gevulde aardappel met spekjes",
+    "image_url": "images\\IMG_2691s-copy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Melk"]
+  },
+  {
+    "id": 25,
+    "name": "Gevulde aardappel met mediterraanse mix",
+    "image_url": "images\\IMG_2695s-copy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Kip",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Melk", "Selderij", "Soya"]
+  },
+  {
+    "id": 26,
+    "name": "Krokante kipfilet met erwten en wortelen en natuuraardappelen",
+    "image_url": "images\\704216-Krokante-kipfilet-erwten-en-wortelen-jus-aardappelen_2023-05-09-154310_puyh.png",
+    "category": "Hoofdgerecht",
+    "diet": "Kip",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Melk", "Selderij", "Soya"]
+  },
+  {
+    "id": 27,
+    "name": "Gyros met Basmatirijst",
+    "image_url": "images\\IMG_2801-copy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Selderij", "Soya"]
+  },
+  {
+    "id": 28,
+    "name": "Pita met looksaus, salade en aardappelwedges",
+    "image_url": "images\\704427-Pita-met-looksaus-salade-en-aardappelwedges.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk", "Selderij"]
+  },
+  {
+    "id": 29,
+    "name": "Vegetarische balletjes broccoli en puree",
+    "image_url": "images\\704243-Vegetarische-balletjes-met-tomatensaus-broccoli-en-puree.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk", "Selderij", "Soya"]
+  },
+  {
+    "id": 30,
+    "name": "Kippenbout met currysaus, rijst en groenten\"",
+    "image_url": "images\\704338-Kippenbout-currysaus-rijst-groenten.png",
+    "category": "Hoofdgerecht",
+    "diet": "Kip",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk", "Selderij"]
+  },
+  {
+    "id": 31,
+    "name": "Fish and chips",
+    "image_url": "images\\704246-Fish-and-Chips_2023-05-09-154855_uses.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vis",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk", "Vis"]
+  },
+  {
+    "id": 32,
+    "name": "Vegetarische quiche  winters slaatje en  gebakken aardappelen",
+    "image_url": "images\\704226-Vegetarische-quiche-winters-slaatje-gebakken-aardappelen_2023-05-09-154552_fmzy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk"]
+  },
+  {
+    "id": 33,
+    "name": "Sojaburger met ratatouille en tarwegranen",
+    "image_url": "images\\704410-Sojaburger-met-ratatouille-en-tarwegranen-copy.jpg",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Soya"]
+  },
+  {
+    "id": 34,
+    "name": "Tex Mex Summer",
+    "image_url": "images\\704634.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Selderij", "Soya"]
+  },
+  {
+    "id": 35,
+    "name": "Alma's boerenkost pureebowl",
+    "image_url": "images\\IMG_3298_2025-10-02-114236_glnh.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Soya"]
+  },
+  {
+    "id": 36,
+    "name": "Alma bacon burger van de grill",
+    "image_url": "images\\IMG_2509-copy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Melk", "Sesam"]
+  },
+  {
+    "id": 37,
+    "name": "Alma groentenburger van de grill",
+    "image_url": "images\\IMG_2512-copy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Melk", "Sesam"]
+  },
+  {
+    "id": 38,
+    "name": "Mexicaanse wok",
+    "image_url": "images\\IMG_2523-s.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Nacho",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Melk", "Selderij"]
+  },
+  {
+    "id": 39,
+    "name": "Mexicaanse groentenwok",
+    "image_url": "images\\IMG_2521-s.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Nacho",
+    "price_student": 5.6,
+    "allergens": ["Melk"]
+  },
+  {
+    "id": 40,
+    "name": "Groenteloempia met currysaus en groentenrijst",
+    "image_url": "images\\704366-Groenteloempia-currysaus-groenterijst.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk", "Selderij", "Soya"]
+  },
+  {
+    "id": 41,
+    "name": "Plant-based seastick met volkoren penne en groentesaus",
+    "image_url": "images\\704363-Vegan-seastick-volk-penne-groente-saus.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Sulfiet"]
+  },
+  {
+    "id": 42,
+    "name": "Herfstschotel met feta en gehakt",
+    "image_url": "images\\704641.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Melk", "Selderij", "Soya"]
+  },
+  {
+    "id": 43,
+    "name": "Thai sweet potato curry",
+    "image_url": "images\\704646_2025-10-07-044616_bdao.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Noten", "Selderij", "Soya"]
+  },
+  {
+    "id": 44,
+    "name": "Halve kip met slaatje en archiducsaus",
+    "image_url": "images\\704365-Halve-kip-slaatje-archiducsaus.png",
+    "category": "Hoofdgerecht",
+    "diet": "Kip",
+    "carb_source": "Aardappel",
+    "price_student": 11.5,
+    "allergens": ["Gluten", "Melk", "Sulfiet", "Noten", "Selderij"]
+  },
+  {
+    "id": 45,
+    "name": "Tacoschelp met chili sin carne en frisse Mexicaanse salade",
+    "image_url": "images\\704638_2025-08-26-075147_taxj.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Melk", "Soya"]
+  },
+  {
+    "id": 46,
+    "name": "Vegarische Hongaarse goulash met rijst",
+    "image_url": "images\\704323-Vegetarische-hongaarse-goulash-rijst.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Selderij", "Soya"]
+  },
+  {
+    "id": 47,
+    "name": "Boomstammetje met rode kool en patatjes",
+    "image_url": "images\\IMG_3174S.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Melk", "Soya"]
+  },
+  {
+    "id": 48,
+    "name": "Groenteburger met gnocchi en bladspinazie",
+    "image_url": "images\\704493-Groenteburger-met-gnocchi-s.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Selderij"]
+  },
+  {
+    "id": 49,
+    "name": "Vegetarische quiche  winters slaatje en  gebakken aardappelen",
+    "image_url": "images\\704226-Vegetarische-quiche-winters-slaatje-gebakken-aardappelen_2023-05-09-154552_fmzy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk"]
+  },
+  {
+    "id": 50,
+    "name": "Kerstschotel spek witloof en denneappeltjes",
+    "image_url": "images\\Kerstdchotel.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Sulfiet", "Soya"]
+  },
+  {
+    "id": 51,
+    "name": "Quornburger met koolrabi en puree",
+    "image_url": "images\\704240-Quornburger-koolrabi-gestoofd-puree-jus-veg.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Soya"]
+  },
+  {
+    "id": 52,
+    "name": "Spare ribs met veldaardappelen en witloofsla",
+    "image_url": "images\\704512-Spare-ribs-met-veldaardappelen-en-witloofsla.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 11.5,
+    "allergens": ["Ei", "Melk", "Soya"]
+  },
+  {
+    "id": 53,
+    "name": "Vegetarische balletjes in peperroom met boontjes en kroketjes",
+    "image_url": "images\\704170-Balletjes-4st.-pepers.-boon.-kroketten.jpg",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Sulfiet", "Noten", "Selderij"]
+  },
+  {
+    "id": 54,
+    "name": "Pita met looksaus salade en gebakken aardappelen",
+    "image_url": "images\\704217-Pita-looksaus-gebakken-aardappelen_2023-05-09-154336_wvqr.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk"]
+  },
+  {
+    "id": 55,
+    "name": "Vegan kerrie met zoete aardappel",
+    "image_url": "images\\704138-Vegetarische-kerrie-met-zoete-aardappel.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd"]
+  },
+  {
+    "id": 56,
+    "name": "Wrap met falafel looksaus en frietjes",
+    "image_url": "images\\704227-Wrap-met-falafel-komkommersla-frieten-looksaus_2023-05-09-154611_zxpw.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Wrap",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk"]
+  },
+  {
+    "id": 57,
+    "name": "Quornburger met gebakken knolselder en puree",
+    "image_url": "images\\704334-Quornburger-gebakken-knolselder-puree_2023-05-09-155117_pnef.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Selderij", "Soya"]
+  },
+  {
+    "id": 58,
+    "name": "Varkensstoofvlees slaatje",
+    "image_url": "images\\s704654.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 11.5,
+    "allergens": ["Mosterd", "Melk", "Selderij", "Soya"]
+  },
+  {
+    "id": 59,
+    "name": "Alma's Halloweenburger",
+    "image_url": "images\\704693s.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Melk", "Sesam"]
+  },
+  {
+    "id": 60,
+    "name": "Alma's Hallo'veggie'weenburger",
+    "image_url": "images\\704694s.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Melk", "Sesam"]
+  },
+  {
+    "id": 61,
+    "name": "Kaaskroketten met kleurige wortelen",
+    "image_url": "images\\704488-Kaaskroketten-met-kleurige-wortelen.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Melk"]
+  },
+  {
+    "id": 62,
+    "name": "Gevulde paprika tom saus griekse pasta",
+    "image_url": "images\\704509.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Gluten"]
+  },
+  {
+    "id": 63,
+    "name": "Gevulde champignons met rijst",
+    "image_url": "images\\704641.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "granen",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Melk", "Selderij", "Soya"]
+  },
+  {
+    "id": 64,
+    "name": "Hokifilet andijviepuree Hollandaise saus moster",
+    "image_url": "images\\704650.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vis",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Mosterd", "Melk", "Vis"]
+  },
+  {
+    "id": 65,
+    "name": "Boomstammetje met snijbonen en aardappelen",
+    "image_url": "images\\703502-Boomstammetje-snijbonen-jus-aardappelen.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Mosterd", "Melk", "Soya"]
+  },
+  {
+    "id": 66,
+    "name": "Chipolata spruiten vleessaus aardappelen",
+    "image_url": "images\\704644.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Melk", "Soya"]
+  },
+  {
+    "id": 67,
+    "name": "Boerenworst met gegratineerde bloemkool",
+    "image_url": "images\\IMG_2508-copy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Soya"]
+  },
+  {
+    "id": 68,
+    "name": "Kipfilet met broccoli en rijst\"",
+    "image_url": "images\\704149-Kipfilet-broccoli-groene-pepersaus-rijst.jpg",
+    "category": "Hoofdgerecht",
+    "diet": "Kip",
+    "carb_source": "Granen",
+    "price_student": 5.6,
+    "allergens": ["Gluten", "Melk", "Sulfiet", "Noten", "Selderij", "Soya"]
+  },
+  {
+    "id": 69,
+    "name": "Pita van tofureepjes met zaziki aardappelsalade",
+    "image_url": "images\\704506-Pita-veg.-zaziki-aardappelsalade.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk", "Soya"]
+  },
+  {
+    "id": 70,
+    "name": "Vlinderpasta mascarpone rosso",
+    "image_url": "images\\704159-Vlinderpasta-mascarpone-rosso.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Selderij"]
+  },
+  {
+    "id": 71,
+    "name": "Pangasius met broccoli hollandse saus en aardappelen",
+    "image_url": "images\\704474-Pangasius-met-broccoli-hollandse-saus-peterselie-aard-s.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vis",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk", "Vis"]
+  },
+  {
+    "id": 72,
+    "name": "Vol-au-veggie",
+    "image_url": "images\\704504-Vol-au-Veggie-s.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Aardappel",
+    "price_student": 7.95,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk"]
+  },
+  {
+    "id": 73,
+    "name": "Famous alma visburger met aardappelwedges en koolslaatje",
+    "image_url": "images\\IMG_2830-copy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vis",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Mosterd", "Melk", "Sulfiet", "Vis", "Sesam"]
+  },
+  {
+    "id": 74,
+    "name": "Macaroni met ham kaas en bloemkool\"",
+    "image_url": "images\\704502-Macaroni-met-ham-kaas-en-bloemkool1-s-copy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vlees",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Ei", "Gluten", "Melk"]
+  },
+  {
+    "id": 75,
+    "name": "Gehakte steak pepersaus prinsessenbonen puree",
+    "image_url": "images\\IMG_2540-s.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Aardappel",
+    "price_student": 5.6,
+    "allergens": []
+  },
+  {
+    "id": 76,
+    "name": "Vegetarische gyros met basmatirijst",
+    "image_url": "images\\704214-Vegetarische-Gyros-met-Pilawrijst-slaatje_2023-05-09-154238_xmal.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "granen",
+    "price_student": 5.6,
+    "allergens": ["Soya"]
+  },
+  {
+    "id": 77,
+    "name": "Groentemoussaka",
+    "image_url": "images\\704230-veg-moussaka.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegetarisch",
+    "carb_source": "Pasta",
+    "price_student": 5.6,
+    "allergens": ["Melk", "Sulfiet", "Selderij", "Soya"]
+  }
 ]
