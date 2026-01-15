@@ -1,0 +1,188 @@
+[
+    {
+        "id": 1,
+        "name": "Fish stick met remouladesaus",
+        "image_url": "/images/704510-Fish-sticks-remoulade-spinaziepuree.png.webp",
+        "category": "Hoofdgerecht",
+        "diet": "Vis",
+        "carb_source": "Aardappel",
+        "price_student": 5.60,
+        "env_score": "C",
+        "allergens": [
+            "Gluten",
+            "Vis",
+            "Melk",
+            "Ei",
+            "Mosterd"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Quinoa risotto",
+        "image_url": "/images/110213-Minestronesoep-vegan.png.webp",
+        "category": "Hoofdgerecht",
+        "diet": "Vegan",
+        "carb_source": "Granen",
+        "price_student": 5.60,
+        "env_score": "A",
+        "allergens": [
+            "Selderij"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Spaghetti bolognaise",
+        "image_url": "/images/704164-Spaghetti-Bolognaise-2_2023-05-09-153822_mzzk.png.webp",
+        "category": "Hoofdgerecht",
+        "diet": "Vlees",
+        "carb_source": "Pasta",
+        "price_student": 5.85,
+        "env_score": "C",
+        "allergens": [
+            "Gluten",
+            "Ei",
+            "Selderij"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Koninginnenhapje met slaatje en puree",
+        "image_url": "/images/704200-Koninginnenhapje-slaatje-en-puree_2023-05-09-153429_kryf.png.webp",
+        "category": "Hoofdgerecht",
+        "diet": "Gevogelte",
+        "carb_source": "Aardappel",
+        "price_student": 7.95,
+        "env_score": "B",
+        "allergens": [
+            "Gluten",
+            "Melk",
+            "Ei",
+            "Selderij"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Quorn op z'n Grieks",
+        "image_url": "/images/704155-Lasagna.png.webp",
+        "category": "Hoofdgerecht",
+        "diet": "Vegan",
+        "carb_source": "Brood",
+        "price_student": 5.60,
+        "env_score": "B",
+        "allergens": [
+            "Gluten",
+            "Soja",
+            "Selderij"
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Famous Alma groenteburger",
+        "image_url": "/images/704476-Famous-Alma-groenteburger-salade-en-wedges.png.webp",
+        "category": "Hoofdgerecht",
+        "diet": "Vegan",
+        "carb_source": "Aardappel",
+        "price_student": 5.60,
+        "env_score": "A",
+        "allergens": [
+            "Gluten",
+            "Soja",
+            "Mosterd",
+            "Selderij"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Famous Almaburger",
+        "image_url": "/images/704475-Famous-Almaburger-winters-salade-en-wedges.png.webp",
+        "category": "Hoofdgerecht",
+        "diet": "Vlees",
+        "carb_source": "Aardappel",
+        "price_student": 5.60,
+        "env_score": "C",
+        "allergens": [
+            "Gluten",
+            "Ei",
+            "Melk",
+            "Mosterd",
+            "Sesamzaad"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Broccolisoep",
+        "image_url": "/images/110217-Broccolisoep-vegan.png.webp",
+        "category": "Soep",
+        "diet": "Vegan",
+        "carb_source": "Geen",
+        "price_student": 2.90,
+        "env_score": "A",
+        "allergens": [
+            "Selderij"
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Bowl Caesar salade",
+        "image_url": "/images/20250722_092034.png.webp",
+        "category": "Bowl",
+        "diet": "Vis & Vlees",
+        "carb_source": "Brood",
+        "price_student": 5.60,
+        "env_score": "B",
+        "allergens": [
+            "Gluten",
+            "Ei",
+            "Vis",
+            "Melk",
+            "Mosterd"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Hongaarse goulash met bulgur",
+        "image_url": "/images/704362-Vegetarische-Hongaarse-goulash-met-bulgur.png.webp",
+        "category": "Hoofdgerecht",
+        "diet": "Vegetarisch",
+        "carb_source": "Granen",
+        "price_student": 5.60,
+        "env_score": "A",
+        "allergens": [
+            "Gluten",
+            "Selderij"
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Groenteburger met gnocchi",
+        "image_url": "/images/704493-Groenteburger-met-gnocchi-s.png.webp",
+        "category": "Hoofdgerecht",
+        "diet": "Vegetarisch",
+        "carb_source": "Pasta",
+        "price_student": 5.60,
+        "env_score": "A",
+        "allergens": [
+            "Gluten",
+            "Ei",
+            "Melk"
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Worstenbroodje",
+        "image_url": "/images/100041-Worstenbroodje.png.webp",
+        "category": "Snack",
+        "diet": "Vlees",
+        "carb_source": "Brood",
+        "price_student": 2.90,
+        "env_score": "D",
+        "allergens": [
+            "Gluten",
+            "Ei",
+            "Melk",
+            "Soja",
+            "Selderij",
+            "Mosterd"
+        ]
+    }
+]
