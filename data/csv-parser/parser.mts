@@ -4,12 +4,14 @@
 import * as fs from "fs";
 import * as path from "path";
 import readline from "readline";
+import { pipeline } from "stream/promises";
 import { Dish, Categorie, Allergen, Diet } from "./types.mjs";
 import { lookupDishName, parseNameFile } from "./dishLookup.mjs";
 
 /* --- Parameters --- */
 const inputFolder = "./data/Dishes Export 14-01-2026";
 const outputFile = "./data/alma_food.json";
+const outputImageFolder = "./data/images";
 const allowedRestaurantIDs = new Set(["1", "2", "5", "41", "30", "6", "7", "3", "4", "8", "40"]);
 
 /* --- parser --- */
@@ -41,7 +43,7 @@ for await (const line of lines) {
 
   if (allowedRestaurantIDs.has(dish[1])) {
     const newDish = parseDish(dish);
-    if (!dishes.has(newDish.name)) {
+    if (!dishes.has(newDish.name) && newDish.image_url !== "" && newDish.category == "Hoofdgerecht") {
       dishes.set(newDish.name, newDish);
     }
   }
@@ -49,6 +51,30 @@ for await (const line of lines) {
 }
 
 console.log(`Extracted ${dishes.size} unique dishes`);
+
+/* count dishes per category */
+// const counts: Map<string, number> = new Map();
+// for (const dish of dishes.values()) {
+//   if (counts.has(dish.category)) {
+//     const temp = counts.get(dish.category)!;
+//     counts.set(dish.category, temp + 1);
+//   } else {
+//     counts.set(dish.category, 1);
+//   }
+// }
+
+// console.log(counts);
+
+/* download images */
+console.log(`Downloading Images to ${outputImageFolder}`);
+for (const dish of dishes.values()) {
+  const filename = path.parse(dish.image_url).base;
+  const newUrl = path.join("images", filename);
+  console.log(newUrl);
+  await downloadImage(dish.image_url, path.join(".", "data", newUrl));
+
+  dish.image_url = newUrl;
+}
 
 const dishesArray: DishWithId[] = Array.from(dishes.values()).map((dish, index) => ({
   id: index + 1, // IDs start at 1
@@ -73,7 +99,6 @@ function parseDish(dish: string[]): Dish {
     diet: dieet,
     carb_source: "Aardappel",
     price_student: Number(dish[8].replace(/[{}]/g, "")),
-    env_score: "A",
     allergens: allergenen,
   };
 }
@@ -130,3 +155,15 @@ function getDiet(vegi: boolean, allergenen: string[]): Diet {
 type DishWithId = Dish & {
   id: number;
 };
+
+export async function downloadImage(url: string, outputPath: string): Promise<void> {
+  const res = await fetch(url);
+
+  if (!res.ok || !res.body) {
+    throw new Error(`Failed to download image: ${res.status}`);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await pipeline(res.body as any, fs.createWriteStream(outputPath));
+  //unsafe any call, but I dont care
+}

@@ -6,7 +6,6 @@ export type Dish = {
   diet: Diet;
   carb_source: CarbSource;
   price_student: number;
-  env_score: Env_Score;
   allergens: string[];
 };
 
