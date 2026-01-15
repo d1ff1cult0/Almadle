@@ -62,11 +62,11 @@
     },
     {
         "id": 5,
-        "name": "Quorn op z'n Grieks",
+        "name": "Lasagne",
         "image_url": "/images/704155-Lasagna.png.webp",
         "category": "Hoofdgerecht",
-        "diet": "Vegan",
-        "carb_source": "Brood",
+        "diet": "Vlees",
+        "carb_source": "Pasta",
         "price_student": 5.60,
         "env_score": "B",
         "allergens": [
