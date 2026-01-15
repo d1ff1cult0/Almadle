@@ -10,12 +10,14 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
+
   --color-alma-bg: #F9C3A9;
   --color-alma-text: #002147;
   --color-alma-grey: #6C757D;
   --color-alma-green: #28A745;
   --color-alma-orange: #E05D44;
+  --color-alma-border: #541717;
+  --color-alma-accent: #F4C430;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,13 +1,19 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { Kaushan_Script } from 'next/font/google';
+import { Shrikhand, Caveat } from 'next/font/google';
 import Image from 'next/image';
 import almaFoodData from '../data/alma_food.json';
+import { Leaf, Wheat, Euro, TriangleAlert, ChefHat, Search } from 'lucide-react';
 
-const kaushan = Kaushan_Script({
+const shrikhand = Shrikhand({
   weight: '400',
   subsets: ['latin'],
+});
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  weight: '700',
 });
 
 // Types
@@ -43,8 +49,6 @@ const PixelatedImage = ({ src, attempt }: { src: string; attempt: number }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
 
-  // Pixelation factor: starts high (blurry), goes to 1 (clear)
-  // attempt 0: factor 20? attempt 6: factor 1
   const pixelFactor = Math.max(1, 40 - attempt * 7);
 
   useEffect(() => {
@@ -65,34 +69,35 @@ const PixelatedImage = ({ src, attempt }: { src: string; attempt: number }) => {
 
       if (!ctx) return;
 
-      // Draw small
       const w = canvas.width;
       const h = canvas.height;
-      
-      // Turn off smoothing to keep pixels sharp when scaling up
+
       ctx.imageSmoothingEnabled = false;
 
-      // Calculate the size of the small image
       const sw = w / pixelFactor;
       const sh = h / pixelFactor;
 
-      // Draw image small
       ctx.drawImage(img, 0, 0, sw, sh);
-
-      // Draw image back large
       ctx.drawImage(canvas, 0, 0, sw, sh, 0, 0, w, h);
     }
   }, [imageLoaded, pixelFactor]);
 
   return (
-    <div className="mb-8 shadow-lg border-4 border-[#1e3a8a] rounded-sm bg-white overflow-hidden w-full max-w-[350px] h-[250px] relative">
-      <canvas
-        ref={canvasRef}
-        width={350}
-        height={250}
-        className="w-full h-full object-cover"
-      />
-      {!imageLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+    <div className="relative transform rotate-[-2deg] mb-12 transition-transform hover:rotate-0 duration-300">
+      <div className="bg-white p-3 pb-12 shadow-xl border border-gray-200">
+        <div className="border border-gray-100 bg-gray-50 overflow-hidden w-[300px] h-[225px] relative">
+          <canvas
+            ref={canvasRef}
+            width={300}
+            height={225}
+            className="w-full h-full object-cover"
+          />
+          {!imageLoaded && <div className="absolute inset-0 bg-gray-100 flex items-center justify-center text-gray-300">Loading...</div>}
+        </div>
+        <div className={`absolute bottom-4 left-0 right-0 text-center ${caveat.className} text-3xl text-alma-text`}>
+          Vandaag's Gerecht
+        </div>
+      </div>
     </div>
   );
 };
@@ -115,8 +120,8 @@ export default function Home() {
   const filteredDishes = useMemo(() => {
     if (!searchTerm) return [];
     return almaFoodData
-      .filter((dish) => 
-        dish.name.toLowerCase().includes(searchTerm.toLowerCase()) && 
+      .filter((dish) =>
+        dish.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
         !guesses.some((g) => g.dish.id === dish.id)
       )
       .slice(0, 5); // Limit limit results
@@ -156,52 +161,33 @@ export default function Home() {
   };
 
   const getCellColor = (status: 'correct' | 'close' | 'wrong' | boolean) => {
-    if (status === true || status === 'correct') return 'bg-alma-green text-white';
-    if (status === 'close') return 'bg-alma-orange text-white';
-    return 'bg-alma-grey text-white';
+    if (status === true || status === 'correct') return 'bg-alma-green border-alma-green text-white';
+    if (status === 'close') return 'bg-alma-orange border-alma-orange text-white';
+    return 'bg-white border-alma-text text-alma-text';
   };
 
   if (!targetDish) return null;
 
   return (
-    <main className="w-full max-w-2xl px-4 flex flex-col items-center mt-4 mb-20 mx-auto">
-      {/* Header */}
-      <header className="w-full max-w-7xl mx-auto px-6 py-8 flex justify-between items-start mb-4">
-        <div className="flex items-center gap-4">
-          <div className={`${kaushan.className} text-[3.5rem] leading-none text-alma-text`}>Alma</div>
-          <div className="h-12 w-px bg-alma-text"></div>
-          <div className="flex flex-col justify-center text-alma-text leading-tight">
-            <span className="text-[0.7rem] uppercase tracking-wide font-normal">KU Leuven</span>
-            <span className="text-[0.9rem] font-bold uppercase tracking-wide">Student Restaurant</span>
-            <span className="text-[0.7rem] uppercase tracking-wide font-normal">Est. 1954</span>
-          </div>
-        </div>
-        <nav className="hidden sm:block">
-            <ul className="flex space-x-6 text-lg font-medium text-alma-text">
-                <li><a href="#" className="hover:underline">Hoe spelen?</a></li>
-                <li><a href="#" className="hover:underline">Statistieken</a></li>
-                <li><a href="#" className="hover:underline">Instellingen</a></li>
-            </ul>
-        </nav>
-      </header>
-      
-      <h1 className="text-5xl font-serif font-bold text-alma-text mb-8">Alma Wordle</h1>
+    <main className="w-full min-h-screen flex flex-col items-center py-10 px-4 bg-alma-bg text-alma-text selection:bg-alma-accent/30">
 
-      <PixelatedImage 
-        src={gameState === 'won' ? targetDish.image_url : targetDish.image_url} 
-        attempt={gameState === 'won' ? 10 : guesses.length} 
+      <h1 className={`${shrikhand.className} text-[5.5rem] leading-tight mb-8 text-alma-text drop-shadow-[2px_2px_0px_rgba(255,255,255,0.5)]`}>Almadle</h1>
+
+      <PixelatedImage
+        src={gameState === 'won' ? targetDish.image_url : targetDish.image_url}
+        attempt={gameState === 'won' ? 10 : guesses.length}
       />
 
       {/* Game Over Message */}
       {gameState !== 'playing' && (
-        <div className="mb-8 text-center p-4 bg-white/50 rounded-lg">
-          <h2 className="text-2xl font-bold mb-2">
-            {gameState === 'won' ? '🎉 Proficiat!' : '😞 Helaas!'}
+        <div className="mb-8 text-center p-6 bg-white border-2 border-alma-text rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+          <h2 className={`text-3xl font-bold mb-2 ${shrikhand.className}`}>
+            {gameState === 'won' ? 'Proficiat!' : 'Helaas!'}
           </h2>
-          <p className="text-lg">Het gerecht was: <strong>{targetDish.name}</strong></p>
-          <button 
+          <p className="text-lg mb-4">Het gerecht was: <strong>{targetDish.name}</strong></p>
+          <button
             onClick={() => window.location.reload()}
-            className="mt-4 px-6 py-2 bg-alma-text text-white rounded hover:bg-opacity-90"
+            className="px-6 py-2 bg-alma-text text-white rounded-lg font-bold hover:bg-opacity-90 transition-colors shadow-md"
           >
             Nog eens spelen
           </button>
@@ -210,83 +196,114 @@ export default function Home() {
 
       {/* Search Input */}
       {gameState === 'playing' && (
-        <div className="w-full max-w-[500px] relative mb-12">
-          <div className="relative w-full">
-            <input 
-              className="w-full pl-4 pr-10 py-3 rounded-md border border-gray-400 focus:outline-none focus:border-alma-text text-gray-700 bg-white shadow-sm placeholder-gray-500"
-              placeholder="Raad het gerecht... (Typ om te zoeken)" 
-              type="text"
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-                setDropdownOpen(true);
-              }}
-              onFocus={() => setDropdownOpen(true)}
-            />
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <svg className="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-              </svg>
+        <div className="w-full max-w-[500px] relative mb-12 z-20">
+          <div className="relative w-full group">
+            {/* Decorational header on search bar */}
+            <div className="absolute -top-3 left-6 right-6 h-3 bg-gradient-to-r from-alma-text/0 via-alma-text/0 to-alma-text/0 flex justify-center z-10">
+              {/* Yellow accent line */}
+              <div className="w-32 h-1.5 bg-alma-accent rounded-full border border-alma-border/20"></div>
+            </div>
+
+            <div className={`
+              absolute inset-0 bg-[#8b2e2e] rounded-full border-2 border-alma-border shadow-lg
+              transform -rotate-1 peer-focus-within:rotate-0 transition-transform duration-300
+            `}></div>
+
+            <div className="absolute inset-0 bg-[#6B1E1E] rounded-full border-2 border-alma-border shadow-inner"></div>
+
+            <div className="relative flex items-center bg-white m-2 rounded-full overflow-hidden border border-gray-200 shadow-inner h-12 peer">
+              <input
+                className="w-full pl-6 pr-12 bg-transparent focus:outline-none text-lg font-medium text-gray-700 placeholder:text-gray-400"
+                placeholder="Raad het gerecht... (Typ om te zoeken)"
+                type="text"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setDropdownOpen(true);
+                }}
+                onFocus={() => setDropdownOpen(true)}
+              />
+              <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400">
+                <Search className="w-5 h-5" />
+              </div>
             </div>
           </div>
-          
+
           {dropdownOpen && searchTerm && (
-            <ul className="absolute z-10 w-full bg-white border border-t-0 border-gray-400 rounded-b-md overflow-hidden shadow-lg max-h-60 overflow-y-auto">
-              {filteredDishes.map((dish) => (
-                <li 
-                  key={dish.id}
-                  onClick={() => handleGuess(dish as Dish)}
-                  className="px-4 hover:bg-gray-100 cursor-pointer text-gray-800 border-b border-gray-100 py-3 last:border-0"
-                >
-                  {dish.name}
-                </li>
-              ))}
-              {filteredDishes.length === 0 && (
-                <li className="px-4 py-3 text-gray-500">Geen gerechten gevonden</li>
-              )}
-            </ul>
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-alma-text rounded-xl shadow-xl overflow-hidden z-30">
+              <ul className="max-h-60 overflow-y-auto divide-y divide-gray-100">
+                {filteredDishes.map((dish) => (
+                  <li
+                    key={dish.id}
+                    onClick={() => handleGuess(dish as Dish)}
+                    className="px-5 py-3 hover:bg-alma-bg/30 cursor-pointer transition-colors flex items-center justify-between group"
+                  >
+                    <span className="font-medium">{dish.name}</span>
+                    <span className="text-sm text-gray-400 group-hover:text-alma-text transition-colors">Selecteer</span>
+                  </li>
+                ))}
+                {filteredDishes.length === 0 && (
+                  <li className="px-5 py-4 text-gray-500 text-center italic">Geen gerechten gevonden</li>
+                )}
+              </ul>
+            </div>
           )}
         </div>
       )}
 
       {/* Headers */}
-      <div className="w-full max-w-[600px] grid grid-cols-5 gap-3 mb-2 text-center text-sm font-bold text-alma-text">
-        <div>Diet</div>
-        <div>Carb</div>
-        <div>Prijs</div>
-        <div>Allergenen</div>
-        <div>Naam</div>
+      <div className="w-full max-w-[600px] grid grid-cols-5 gap-2 sm:gap-3 mb-2 px-2">
+        <div className="flex flex-col items-center gap-1 text-alma-text">
+          <Leaf className="w-5 h-5 sm:w-6 sm:h-6" />
+          <span className="text-xs font-bold uppercase tracking-wider">Diet</span>
+        </div>
+        <div className="flex flex-col items-center gap-1 text-alma-text">
+          <Wheat className="w-5 h-5 sm:w-6 sm:h-6" />
+          <span className="text-xs font-bold uppercase tracking-wider">Carbs</span>
+        </div>
+        <div className="flex flex-col items-center gap-1 text-alma-text">
+          <Euro className="w-5 h-5 sm:w-6 sm:h-6" />
+          <span className="text-xs font-bold uppercase tracking-wider">Prijs</span>
+        </div>
+        <div className="flex flex-col items-center gap-1 text-alma-text">
+          <TriangleAlert className="w-5 h-5 sm:w-6 sm:h-6" />
+          <span className="text-xs font-bold uppercase tracking-wider">Allergenen</span>
+        </div>
+        <div className="flex flex-col items-center gap-1 text-alma-text">
+          <ChefHat className="w-5 h-5 sm:w-6 sm:h-6" />
+          <span className="text-xs font-bold uppercase tracking-wider">Naam</span>
+        </div>
       </div>
 
       {/* Guesses */}
-      <div className="w-full max-w-[600px] flex flex-col gap-3">
+      <div className="w-full max-w-[600px] flex flex-col gap-2 sm:gap-3 px-2">
         {guesses.map((guess, idx) => (
-            <div key={idx} className="grid grid-cols-5 gap-3">
-                 <div className={`game-grid-cell ${getCellColor(guess.matches.diet)} shadow-sm flex items-center justify-center p-2 rounded text-sm`}>
-                    {guess.dish.diet}
-                </div>
-                <div className={`game-grid-cell ${getCellColor(guess.matches.carb_source)} shadow-sm flex items-center justify-center p-2 rounded text-sm`}>
-                    {guess.dish.carb_source}
-                </div>
-                <div className={`game-grid-cell ${getCellColor(guess.matches.price)} shadow-sm flex items-center justify-center p-2 rounded text-sm`}>
-                   €{guess.dish.price_student.toFixed(2)}
-                </div>
-                <div className={`game-grid-cell ${getCellColor(guess.matches.allergenCount)} shadow-sm flex items-center justify-center p-2 rounded text-sm leading-tight text-center px-1`}>
-                    {guess.dish.allergens?.length || 0}
-                </div>
-                <div className={`game-grid-cell ${getCellColor(guess.matches.nameLength)} shadow-sm flex items-center justify-center p-2 rounded text-sm`}>
-                    {guess.dish.name.length}
-                </div>
+          <div key={idx} className="grid grid-cols-5 gap-2 sm:gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <div className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(guess.matches.diet)}`}>
+              {guess.dish.diet}
             </div>
+            <div className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(guess.matches.carb_source)}`}>
+              {guess.dish.carb_source}
+            </div>
+            <div className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(guess.matches.price)}`}>
+              €{guess.dish.price_student.toFixed(2)}
+            </div>
+            <div className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(guess.matches.allergenCount)}`}>
+              {guess.dish.allergens?.length || 0}
+            </div>
+            <div className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(guess.matches.nameLength)}`}>
+              {guess.dish.name.length}
+            </div>
+          </div>
         ))}
 
         {/* Empty slots */}
         {Array.from({ length: Math.max(0, MAX_ATTEMPTS - guesses.length) }).map((_, idx) => (
-           <div key={`empty-${idx}`} className="grid grid-cols-5 gap-3">
-                {[...Array(5)].map((_, i) => (
-                   <div key={i} className="game-grid-cell bg-white border-2 border-gray-400 shadow-sm h-[45px] rounded"></div> 
-                ))}
-           </div> 
+          <div key={`empty-${idx}`} className="grid grid-cols-5 gap-2 sm:gap-3">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="bg-transparent border-2 border-alma-text/40 rounded-lg h-10 sm:h-12"></div>
+            ))}
+          </div>
         ))}
       </div>
 
