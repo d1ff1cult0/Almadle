@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  almadle:
+    build: .
+    container_name: almadle-game
+    ports:
+      - "3006:3000"
+    restart: always
+    environment:
+      - NODE_ENV=production
