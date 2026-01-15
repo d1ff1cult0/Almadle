@@ -22,8 +22,10 @@ type GuessResult = {
     diet: boolean;
     carb_source: boolean;
     price: 'correct' | 'close' | 'wrong';
+    priceValue: 'correct' | 'higher' | 'lower' | 'wrong';
     allergenCount: 'correct' | 'close' | 'wrong';
     nameLength: 'correct' | 'close' | 'wrong';
+    nameLengthDiff: number;
   };
 };
 
@@ -60,11 +62,13 @@ export async function POST(req: Request) {
   const lost = !won && attempts >= MAX_ATTEMPTS;
   const state = won ? 'won' : lost ? 'lost' : 'playing';
 
-  const priceDiff = Math.abs(guess.price_student - target.price_student);
+  const rawPriceDiff = guess.price_student - target.price_student;
+  const priceDiff = Math.abs(rawPriceDiff);
   const targetAllergens = target.allergens?.length || 0;
   const guessAllergens = guess.allergens?.length || 0;
   const allergenDiff = Math.abs(guessAllergens - targetAllergens);
-  const lengthDiff = Math.abs(guess.name.length - target.name.length);
+  const rawNameLenDiff = guess.name.length - target.name.length;
+  const lengthDiff = Math.abs(rawNameLenDiff);
 
   const result: GuessResult = {
     dish: {
@@ -81,8 +85,17 @@ export async function POST(req: Request) {
       diet: guess.diet === target.diet,
       carb_source: guess.carb_source === target.carb_source,
       price: priceDiff === 0 ? 'correct' : priceDiff <= 1.0 ? 'close' : 'wrong',
+      priceValue:
+        priceDiff === 0
+          ? 'correct'
+          : priceDiff <= 1.0
+            ? rawPriceDiff > 0
+              ? 'lower'
+              : 'higher'
+            : 'wrong',
       allergenCount: allergenDiff === 0 ? 'correct' : allergenDiff <= 2 ? 'close' : 'wrong',
       nameLength: lengthDiff === 0 ? 'correct' : lengthDiff <= 3 ? 'close' : 'wrong',
+      nameLengthDiff: rawNameLenDiff,
     },
   };
 
