@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": " gratis bij spaghetti (dierlijke oorsprong)\"",
+    "name": "Geraspte Kaas (dierlijke oorsprong)",
     "image_url": "images\\100271-Geraspte-kaas-gratis-bij-spaghetti-dierlijke-oorsprong_2023-05-09-144953_hzad.png",
     "category": "Hoofdgerecht",
     "diet": "Vegetarisch",
@@ -51,7 +51,7 @@
   },
   {
     "id": 6,
-    "name": " fris slaatje en krokant lookbrood\"",
+    "name": " fris slaatje en krokant lookbrood",
     "image_url": "images\\20250722_092034.png",
     "category": "Hoofdgerecht",
     "diet": "Vegan",
@@ -291,7 +291,7 @@
   },
   {
     "id": 30,
-    "name": "Kippenbout met currysaus, rijst en groenten\"",
+    "name": "Kippenbout met currysaus, rijst en groenten",
     "image_url": "images\\704338-Kippenbout-currysaus-rijst-groenten.png",
     "category": "Hoofdgerecht",
     "diet": "Kip",
@@ -671,7 +671,7 @@
   },
   {
     "id": 68,
-    "name": "Kipfilet met broccoli en rijst\"",
+    "name": "Kipfilet met broccoli en rijst",
     "image_url": "images\\704149-Kipfilet-broccoli-groene-pepersaus-rijst.jpg",
     "category": "Hoofdgerecht",
     "diet": "Kip",
@@ -731,7 +731,7 @@
   },
   {
     "id": 74,
-    "name": "Macaroni met ham kaas en bloemkool\"",
+    "name": "Macaroni met ham kaas en bloemkool",
     "image_url": "images\\704502-Macaroni-met-ham-kaas-en-bloemkool1-s-copy.png",
     "category": "Hoofdgerecht",
     "diet": "Vlees",
@@ -758,5 +758,15 @@
     "carb_source": "granen",
     "price_student": 5.6,
     "allergens": ["Soya"]
+  },
+  {
+    "id": 77,
+    "name": "Vegetarische Spaghetti bolognaise",
+    "image_url": "images\\704165-Vegan-Spaghetti-bolognaise_2023-05-09-122815_kpsy.png",
+    "category": "Hoofdgerecht",
+    "diet": "Vegan",
+    "carb_source": "Pasta",
+    "price_student": 5.85,
+    "allergens": ["Gluten", "Sulfiet", "Selderij", "Soya"]
   }
 ]
