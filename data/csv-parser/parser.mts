@@ -1,5 +1,7 @@
 /**
 @author Witse Panneels
+
+npm run parse-dishes
 */
 import * as fs from "fs";
 import * as path from "path";
