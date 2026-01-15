@@ -1,0 +1,22 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Pull and Deploy
+        run: |
+          # 1. Navigate to the project directory
+          cd /home/d1ff1cult/Server/Almadle
+
+          # 2. Pull the latest code
+          git pull origin main
+
+          # 3. Build and Start
+          docker compose build --no-cache
+          docker compose up -d
