@@ -481,13 +481,13 @@
   },
   {
     "id": 49,
-    "name": "Vegetarische quiche  winters slaatje en  gebakken aardappelen",
-    "image_url": "images\\704226-Vegetarische-quiche-winters-slaatje-gebakken-aardappelen_2023-05-09-154552_fmzy.png",
+    "name": "Groentemoussaka",
+    "image_url": "images\\704230-veg-moussaka.png",
     "category": "Hoofdgerecht",
     "diet": "Vegetarisch",
-    "carb_source": "Aardappel",
+    "carb_source": "Pasta",
     "price_student": 5.6,
-    "allergens": ["Ei", "Gluten", "Melk"]
+    "allergens": ["Melk", "Sulfiet", "Selderij", "Soya"]
   },
   {
     "id": 50,
@@ -758,15 +758,5 @@
     "carb_source": "granen",
     "price_student": 5.6,
     "allergens": ["Soya"]
-  },
-  {
-    "id": 77,
-    "name": "Groentemoussaka",
-    "image_url": "images\\704230-veg-moussaka.png",
-    "category": "Hoofdgerecht",
-    "diet": "Vegetarisch",
-    "carb_source": "Pasta",
-    "price_student": 5.6,
-    "allergens": ["Melk", "Sulfiet", "Selderij", "Soya"]
   }
 ]
