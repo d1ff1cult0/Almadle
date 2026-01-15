@@ -87,7 +87,7 @@ export async function GET(request: NextRequest) {
                 .resize(400, 300, { kernel: sharp.kernel.nearest })
                 .toBuffer();
 
-            return new Response(pixelatedBuffer, {
+            return new Response(pixelatedBuffer as unknown as BodyInit, {
                 headers: {
                     'Content-Type': 'image/png',
                     'Cache-Control': 'public, max-age=60',
@@ -96,7 +96,7 @@ export async function GET(request: NextRequest) {
         }
 
         // If no pixelation (stage 10 or win), return the standard clear image
-        return new Response(standardBuffer, {
+        return new Response(standardBuffer as unknown as BodyInit, {
             headers: {
                 'Content-Type': 'image/png',
                 'Cache-Control': 'public, max-age=60',
