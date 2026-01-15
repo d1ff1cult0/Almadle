@@ -3,20 +3,25 @@ import sharp from "sharp";
 import fs from "fs/promises";
 import path from "path";
 import { getDailyDish } from "../../utils/dailyDish";
+import { getRandomDish } from "@/app/utils/randomDish";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const date = searchParams.get("date");
+  const random = searchParams.get("random");
   const stage = parseInt(searchParams.get("stage") || "0");
 
-  // Validate date param
-  if (!date) {
-    return NextResponse.json({ error: "Date parameter is required" }, { status: 400 });
+  // Validate date or random param
+  let dish;
+  if (date) {
+    dish = getDailyDish(date);
+  } else if (random) {
+    dish = getRandomDish(random);
+  } else {
+    return NextResponse.json({ error: "date or random parameter is required" }, { status: 400 });
   }
 
   try {
-    const dish = getDailyDish(date);
-
     if (!dish || !dish.image_url) {
       return NextResponse.json({ error: "Dish not found" }, { status: 404 });
     }
