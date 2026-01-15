@@ -28,18 +28,21 @@ export async function GET(request: NextRequest) {
 
     let buffer: Buffer;
 
-    if (dish.image_url.startsWith("images")) {
+    // Normalize path to handle Windows-style backslashes from JSON
+    const normalizedImageUrl = dish.image_url.replace(/\\/g, "/");
+
+    if (normalizedImageUrl.startsWith("images")) {
       // Local file in public directory
-      const filePath = path.join(process.cwd(), "public", dish.image_url);
+      const filePath = path.join(process.cwd(), "public", normalizedImageUrl);
       try {
         buffer = await fs.readFile(filePath);
       } catch (err) {
-        console.error("File read error:", err);
+        console.error("File read error for path:", filePath, err);
         return NextResponse.json({ error: "Image file not found" }, { status: 404 });
       }
     } else {
       // External URL
-      const response = await fetch(dish.image_url);
+      const response = await fetch(normalizedImageUrl);
       if (!response.ok) {
         throw new Error("Failed to fetch image");
       }
