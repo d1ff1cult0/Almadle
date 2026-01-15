@@ -4,7 +4,8 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { Shrikhand, Caveat } from 'next/font/google';
 import Image from 'next/image';
 import almaFoodData from '../data/alma_food.json';
-import { Leaf, Wheat, Euro, TriangleAlert, ChefHat, Search } from 'lucide-react';
+import { Leaf, Wheat, Euro, TriangleAlert, ChefHat, Search, Share2, X, ChevronUp, ChevronDown, Check } from 'lucide-react';
+import { getDailyDish } from './utils/dailyDish';
 
 const shrikhand = Shrikhand({
   weight: '400',
@@ -36,66 +37,137 @@ type GuessResult = {
     diet: boolean;
     carb_source: boolean;
     price: 'correct' | 'close' | 'wrong';
+    priceValue: string;
     allergenCount: 'correct' | 'close' | 'wrong';
     nameLength: 'correct' | 'close' | 'wrong';
+    nameLengthDiff: number;
   };
 };
 
 const MAX_ATTEMPTS = 6;
 
-// Pixelated Image Component
-const PixelatedImage = ({ src, attempt }: { src: string; attempt: number }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const imgRef = useRef<HTMLImageElement | null>(null);
-
-  const pixelFactor = Math.max(1, 40 - attempt * 7);
-
-  useEffect(() => {
-    const img = document.createElement('img');
-    img.src = src;
-    img.crossOrigin = 'Anonymous';
-    img.onload = () => {
-      imgRef.current = img;
-      setImageLoaded(true);
-    };
-  }, [src]);
-
-  useEffect(() => {
-    if (imageLoaded && canvasRef.current && imgRef.current) {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
-      const img = imgRef.current;
-
-      if (!ctx) return;
-
-      const w = canvas.width;
-      const h = canvas.height;
-
-      ctx.imageSmoothingEnabled = false;
-
-      const sw = w / pixelFactor;
-      const sh = h / pixelFactor;
-
-      ctx.drawImage(img, 0, 0, sw, sh);
-      ctx.drawImage(canvas, 0, 0, sw, sh, 0, 0, w, h);
-    }
-  }, [imageLoaded, pixelFactor]);
+// Pixelated Image Component using Server-Side API
+const PixelatedImage = ({ attempt, dateKey }: { attempt: number; dateKey: string }) => {
+  // Use current timestamp to bust cache if needed, but next/image should handle caching.
+  // We pass 'stage' to the API.
+  const stage = attempt; // 0 to MAX_ATTEMPTS
+  // Construct API URL
+  const imageUrl = `/api/image?date=${dateKey}&stage=${stage}`;
 
   return (
     <div className="relative transform rotate-[-2deg] mb-12 transition-transform hover:rotate-0 duration-300">
       <div className="bg-white p-3 pb-12 shadow-xl border border-gray-200">
         <div className="border border-gray-100 bg-gray-50 overflow-hidden w-[300px] h-[225px] relative">
-          <canvas
-            ref={canvasRef}
+          <Image
+            src={imageUrl}
+            alt="Pixelated Dish"
             width={300}
             height={225}
             className="w-full h-full object-cover"
+            unoptimized // Allow dynamic API image
+            key={stage} // Force re-render on stage change
           />
-          {!imageLoaded && <div className="absolute inset-0 bg-gray-100 flex items-center justify-center text-gray-300">Loading...</div>}
         </div>
         <div className={`absolute bottom-4 left-0 right-0 text-center ${caveat.className} text-3xl text-alma-text`}>
           Vandaag's Gerecht
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Share Modal Component
+const ShareModal = ({
+  isOpen,
+  onClose,
+  guesses,
+  targetDish,
+  gameState
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  guesses: GuessResult[];
+  targetDish: Dish;
+  gameState: 'won' | 'lost' | 'playing';
+}) => {
+  if (!isOpen) return null;
+
+  const handleShare = () => {
+    // Generate emoji grid
+    let shareText = `Almadle ${new Date().toLocaleDateString()}\n`;
+    shareText += `Gereden in ${guesses.length}/${MAX_ATTEMPTS}\n\n`;
+
+    guesses.forEach(g => {
+      // logic for emojis: 
+      // Green square for correct, Yellow for close, Black/White for wrong?
+      // Let's use squares.
+      const getEmoji = (status: 'correct' | 'close' | 'wrong' | boolean) => {
+        if (status === 'correct' || status === true) return '🟩';
+        if (status === 'close') return '🟨';
+        return '⬜';
+      };
+      shareText += `${getEmoji(g.matches.diet)}${getEmoji(g.matches.carb_source)}${getEmoji(g.matches.price)}${getEmoji(g.matches.allergenCount)}${getEmoji(g.matches.nameLength)}\n`;
+    });
+
+    navigator.clipboard.writeText(shareText);
+    alert('Resultaten gekopieerd naar klembord!');
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+        {/* Header */}
+        <div className="bg-white border-b p-4 flex justify-between items-center">
+          <h2 className="text-xl font-bold text-gray-800">Game Complete</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="p-6 flex flex-col items-center text-center">
+
+          <h3 className="text-alma-green font-bold text-lg mb-6">
+            {gameState === 'won' ? `Gefeliciteerd! Je hebt het geraden in ${guesses.length} pogingen!` : 'Volgende keer beter!'}
+          </h3>
+
+          <div className="w-full bg-gray-50 rounded-lg p-4 mb-6 flex justify-between items-center border border-gray-100">
+            <div className="text-center w-1/2 border-r border-gray-200">
+              <div className="text-xs text-gray-500 uppercase font-bold mb-1">Jouw Gok</div>
+              <div className="text-alma-orange font-bold text-xl">{guesses[guesses.length - 1].dish.name}</div>
+            </div>
+            <div className="text-center w-1/2">
+              <div className="text-xs text-gray-500 uppercase font-bold mb-1">Exacte Prijs</div>
+              <div className="text-alma-orange font-bold text-xl">€{targetDish.price_student.toFixed(2)}</div>
+            </div>
+          </div>
+
+          {/* Stats place holder */}
+          <div className="w-full mb-8">
+            <h4 className="text-gray-500 font-medium mb-3 text-sm uppercase">Je Statistieken</h4>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-white border rounded-lg p-3 shadow-sm">
+                <div className="text-2xl font-bold text-alma-orange">3</div>
+                <div className="text-xs text-gray-500">Spellen Gespeeld</div>
+              </div>
+              <div className="bg-white border rounded-lg p-3 shadow-sm">
+                <div className="text-2xl font-bold text-alma-orange">100%</div>
+                <div className="text-xs text-gray-500">Nauwkeurigheid</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Share Buttons */}
+          <div className="w-full">
+            <h4 className="text-gray-500 font-medium mb-3 text-sm uppercase">Resultaat Delen</h4>
+            <div className="flex justify-center gap-2 flex-wrap">
+              <button onClick={handleShare} className="bg-alma-green text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-opacity-90 transition-colors w-full justify-center shadow-md">
+                <Share2 className="w-5 h-5" />
+                Deel Resultaat
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -109,12 +181,13 @@ export default function Home() {
   const [gameState, setGameState] = useState<'playing' | 'won' | 'lost'>('playing');
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const [modalOpen, setModalOpen] = useState(false);
+
   // Initialize game
   useEffect(() => {
-    // Pick random dish
-    // Ideally use today's date for daily challenge, but random for now as requested "game"
-    const randomDish = almaFoodData[Math.floor(Math.random() * almaFoodData.length)];
-    setTargetDish(randomDish as Dish);
+    // Pick daily dish seeded
+    const dish = getDailyDish();
+    setTargetDish(dish as Dish);
   }, []);
 
   const filteredDishes = useMemo(() => {
@@ -134,7 +207,7 @@ export default function Home() {
     const targetAllergens = targetDish.allergens?.length || 0;
     const guessAllergens = dish.allergens?.length || 0;
     const allergenDiff = Math.abs(guessAllergens - targetAllergens);
-    const lengthDiff = Math.abs(dish.name.length - targetDish.name.length);
+    const lengthDiff = dish.name.length - targetDish.name.length; // + if guess is longer, - if shorter
 
     const match: GuessResult = {
       dish,
@@ -143,8 +216,10 @@ export default function Home() {
         diet: dish.diet === targetDish.diet,
         carb_source: dish.carb_source === targetDish.carb_source,
         price: priceDiff === 0 ? 'correct' : priceDiff <= 1.0 ? 'close' : 'wrong',
+        priceValue: priceDiff === 0 ? 'correct' : priceDiff <= 1.0 ? (dish.price_student > targetDish.price_student ? 'lower' : 'higher') : 'wrong', // We could add directional arrow for price too? Request only mentioned Name.
         allergenCount: allergenDiff === 0 ? 'correct' : allergenDiff <= 2 ? 'close' : 'wrong',
-        nameLength: lengthDiff === 0 ? 'correct' : lengthDiff <= 3 ? 'close' : 'wrong',
+        nameLength: lengthDiff === 0 ? 'correct' : Math.abs(lengthDiff) <= 3 ? 'close' : 'wrong',
+        nameLengthDiff: lengthDiff,
       }
     };
 
@@ -155,8 +230,10 @@ export default function Home() {
 
     if (dish.id === targetDish.id) {
       setGameState('won');
+      setModalOpen(true); // Open modal on win
     } else if (newGuesses.length >= MAX_ATTEMPTS) {
       setGameState('lost');
+      setModalOpen(true); // Open modal on loss
     }
   };
 
@@ -174,8 +251,16 @@ export default function Home() {
       <h1 className={`${shrikhand.className} text-[5.5rem] leading-tight mb-8 text-alma-text drop-shadow-[2px_2px_0px_rgba(255,255,255,0.5)]`}>Almadle</h1>
 
       <PixelatedImage
-        src={gameState === 'won' ? targetDish.image_url : targetDish.image_url}
+        dateKey={new Date().toISOString().split('T')[0]} // Use today's date YYYY-MM-DD
         attempt={gameState === 'won' ? 10 : guesses.length}
+      />
+
+      <ShareModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        guesses={guesses}
+        targetDish={targetDish}
+        gameState={gameState}
       />
 
       {/* Game Over Message */}
@@ -292,7 +377,12 @@ export default function Home() {
               {guess.dish.allergens?.length || 0}
             </div>
             <div className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(guess.matches.nameLength)}`}>
-              {guess.dish.name.length}
+              <div className="flex items-center gap-1">
+                {guess.dish.name.length}
+                {guess.matches.nameLength !== 'correct' && (
+                  guess.matches.nameLengthDiff > 0 ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3" />
+                )}
+              </div>
             </div>
           </div>
         ))}
