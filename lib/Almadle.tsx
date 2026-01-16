@@ -3,12 +3,18 @@
  * @author Witse Panneels
  */
 import { useState, useMemo } from "react";
+import { Shrikhand } from "next/font/google";
 import { Search, Leaf, Wheat, Euro, TriangleAlert, ChefHat, ChevronDown, ChevronUp } from "lucide-react";
 import { getRandomDish } from "@/app/utils/randomDish";
 import { getDailyDish } from "@/app/utils/dailyDish";
 import PixelatedImage from "./PixelatedImage";
 import ShareModal from "./ShareModal";
 import almaFoodData from "@/data/alma_food.json";
+
+const shrikhand = Shrikhand({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 const MAX_ATTEMPTS = 6;
 
@@ -107,6 +113,24 @@ export default function Almadle({ dishSeed = "niet random", random = false }: { 
         max_attempts={MAX_ATTEMPTS}
         random={random}
       />
+
+      {/* Game Over Message */}
+      {gameState !== "playing" && (
+        <div className="mb-8 text-center p-6 bg-white border-2 border-alma-text rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+          <h2 className={`text-3xl font-bold mb-2 ${shrikhand.className}`}>
+            {gameState === "won" ? "Proficiat!" : "Helaas!"}
+          </h2>
+          <p className="text-lg mb-4">
+            Het gerecht was: <strong>{targetDish.name}</strong>
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-6 py-2 bg-alma-text text-white rounded-lg font-bold hover:bg-opacity-90 transition-colors shadow-md"
+          >
+            Nog eens spelen
+          </button>
+        </div>
+      )}
 
       {/* Search Input */}
       {gameState === "playing" && (
