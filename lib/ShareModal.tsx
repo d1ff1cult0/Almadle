@@ -37,7 +37,7 @@ export default function ShareModal({
         return "⬜";
       };
       shareText += `${getEmoji(g.matches.diet)}${getEmoji(g.matches.carb_source)}${getEmoji(g.matches.price)}${getEmoji(
-        g.matches.allergenCount
+        g.matches.allergens,
       )}${getEmoji(g.matches.nameLength)}\n`;
     });
 

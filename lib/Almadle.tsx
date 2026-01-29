@@ -43,7 +43,7 @@ export default function Almadle({ dishSeed = "niet random", random = false }: { 
     return almaFoodData
       .filter(
         (dish) =>
-          dish.name.toLowerCase().includes(searchTerm.toLowerCase()) && !guesses.some((g) => g.dish.id === dish.id)
+          dish.name.toLowerCase().includes(searchTerm.toLowerCase()) && !guesses.some((g) => g.dish.id === dish.id),
       )
       .slice(0, 5); // Limit limit results
   }, [searchTerm, guesses]);
@@ -52,10 +52,18 @@ export default function Almadle({ dishSeed = "niet random", random = false }: { 
     if (!targetDish || gameState !== "playing") return;
 
     const priceDiff = Math.abs(dish.price_student - targetDish.price_student);
-    const targetAllergens = targetDish.allergens?.length || 0;
-    const guessAllergens = dish.allergens?.length || 0;
-    const allergenDiff = Math.abs(guessAllergens - targetAllergens);
     const lengthDiff = dish.name.length - targetDish.name.length; // + if guess is longer, - if shorter
+
+    // allergens
+    const targetSet = new Set(targetDish.allergens || []);
+    const guessSet = new Set(dish.allergens || []);
+    const matches = [...guessSet].filter((a) => targetSet.has(a)).length;
+    let allergenMatch: "correct" | "close" | "wrong" = "wrong";
+    if (matches === targetSet.size && matches === guessSet.size) {
+      allergenMatch = "correct"; // 100% identical
+    } else if (matches > 0) {
+      allergenMatch = "close"; // partial overlap
+    }
 
     const match: GuessResult = {
       dish,
@@ -63,16 +71,16 @@ export default function Almadle({ dishSeed = "niet random", random = false }: { 
         category: dish.category === targetDish.category,
         diet: dish.diet === targetDish.diet,
         carb_source: dish.carb_source === targetDish.carb_source,
-        price: priceDiff === 0 ? "correct" : priceDiff <= 1.0 ? "close" : "wrong",
+        price: priceDiff === 0 ? "correct" : "wrong",
         priceValue:
           priceDiff === 0
             ? "correct"
             : priceDiff <= 1.0
-            ? dish.price_student > targetDish.price_student
-              ? "lower"
-              : "higher"
-            : "wrong", // We could add directional arrow for price too? Request only mentioned Name.
-        allergenCount: allergenDiff === 0 ? "correct" : allergenDiff <= 2 ? "close" : "wrong",
+              ? dish.price_student > targetDish.price_student
+                ? "lower"
+                : "higher"
+              : "wrong", // We could add directional arrow for price too? Request only mentioned Name.
+        allergens: allergenMatch,
         nameLength: lengthDiff === 0 ? "correct" : Math.abs(lengthDiff) <= 3 ? "close" : "wrong",
         nameLengthDiff: lengthDiff,
       },
@@ -94,8 +102,8 @@ export default function Almadle({ dishSeed = "niet random", random = false }: { 
 
   const getCellColor = (status: "correct" | "close" | "wrong" | boolean) => {
     if (status === true || status === "correct") return "bg-alma-green border-alma-green text-white";
-    if (status === "close") return "bg-alma-orange border-alma-orange text-white";
-    return "bg-white border-alma-text text-alma-text";
+    if (status === "close") return "bg-white border-alma-text text-alma-text";
+    return "bg-alma-orange border-alma-orange text-white";
   };
 
   if (!targetDish) return <h1>Something went wrong, please refresh this page</h1>;
@@ -226,35 +234,46 @@ export default function Almadle({ dishSeed = "niet random", random = false }: { 
           >
             <div
               className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(
-                guess.matches.diet
+                guess.matches.diet,
               )}`}
             >
               {guess.dish.diet}
             </div>
             <div
               className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(
-                guess.matches.carb_source
+                guess.matches.carb_source,
               )}`}
             >
               {guess.dish.carb_source}
             </div>
             <div
               className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(
-                guess.matches.price
+                guess.matches.price,
               )}`}
             >
               €{guess.dish.price_student.toFixed(2)}
             </div>
             <div
               className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(
-                guess.matches.allergenCount
+                guess.matches.allergens,
               )}`}
             >
-              {guess.dish.allergens?.length || 0}
+              <div className="relative w-full px-1 group">
+                <div className="text-[11px] leading-tight text-center line-clamp-2 break-words">
+                  {(guess.dish.allergens?.length ?? 0) > 0 ? guess.dish.allergens!.join(", ") : "Geen"}
+                </div>
+
+                {/* Tooltip on hover */}
+                {(guess.dish.allergens?.length ?? 0) > 0 && (
+                  <div className="absolute hidden group-hover:block z-[9999] left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black text-white text-xs px-2 py-1 rounded shadow-xl whitespace-normal max-w-[240px] pointer-events-none">
+                    {guess.dish.allergens!.join(", ")}
+                  </div>
+                )}
+              </div>
             </div>
             <div
               className={`border-2 rounded-lg flex items-center justify-center h-10 sm:h-12 text-sm sm:text-base font-medium shadow-sm transition-all hover:scale-105 ${getCellColor(
-                guess.matches.nameLength
+                guess.matches.nameLength,
               )}`}
             >
               <div className="flex items-center gap-1">
@@ -303,7 +322,7 @@ export type GuessResult = {
     carb_source: boolean;
     price: "correct" | "close" | "wrong";
     priceValue: string;
-    allergenCount: "correct" | "close" | "wrong";
+    allergens: "correct" | "close" | "wrong";
     nameLength: "correct" | "close" | "wrong";
     nameLengthDiff: number;
   };
