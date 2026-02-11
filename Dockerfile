@@ -18,6 +18,9 @@ COPY . .
 # Disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
+# Dummy DATABASE_URL for build time (Prisma validation)
+ENV DATABASE_URL="file:/tmp/dummy.db"
+
 RUN npx prisma generate
 RUN npm run build
 
