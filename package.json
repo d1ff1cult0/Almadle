@@ -10,6 +10,8 @@
     "parse-dishes": "tsx ./data/csv-parser/parser.mts"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.0",
+    "@prisma/adapter-libsql": "^7.4.0",
     "@prisma/client": "^7.4.0",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^3.0.3",

@@ -46,7 +46,7 @@ export default async function DashboardPage() {
     `;
 
     // Simple serialization for BigInt
-    const dailyStats = gamesPerDayRaw.map(g => ({
+    const dailyStats = (gamesPerDayRaw as { date: string; count: bigint }[]).map((g) => ({
         date: g.date,
         count: Number(g.count)
     }));
