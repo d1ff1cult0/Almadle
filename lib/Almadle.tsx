@@ -2,7 +2,7 @@
 /**
  * @author Witse Panneels
  */
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Shrikhand } from "next/font/google";
 import { Search, Leaf, Wheat, Euro, TriangleAlert, ChefHat, ChevronDown, ChevronUp } from "lucide-react";
 import { getRandomDish } from "@/app/utils/randomDish";
@@ -128,12 +128,15 @@ export default function Almadle({ dishSeed = "niet random", random = false }: { 
   });
 
   // Better to use useEffect with a ref
-  const hasTrackedStart = useMemo(() => ({ current: false }), []);
+  const hasTrackedStart = useRef(false);
 
-  if (!hasTrackedStart.current && targetDish) {
-    hasTrackedStart.current = true;
-    trackGame("started", 0);
-  }
+  useEffect(() => {
+    if (!hasTrackedStart.current && targetDish) {
+      hasTrackedStart.current = true;
+      trackGame("started", 0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getCellColor = (status: "correct" | "close" | "wrong" | boolean) => {
     if (status === true || status === "correct") return "bg-alma-green border-alma-green text-white";
