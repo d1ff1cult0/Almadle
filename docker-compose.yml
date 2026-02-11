@@ -7,5 +7,9 @@ services:
     ports:
       - "3006:3000"
     restart: always
+    volumes:
+      - ./data:/app/data
     environment:
       - NODE_ENV=production
+      - DATABASE_URL=file:/app/data/dev.db
+    command: sh -c "npx prisma migrate deploy && node server.js"

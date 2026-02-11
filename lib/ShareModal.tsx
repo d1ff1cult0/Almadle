@@ -41,6 +41,8 @@ export default function ShareModal({
       )}${getEmoji(g.matches.nameLength)}\n`;
     });
 
+    shareText += `\nhttps://almadle.be`;
+
     navigator.clipboard.writeText(shareText);
     alert("Resultaten gekopieerd naar klembord!");
   };
@@ -51,7 +53,7 @@ export default function ShareModal({
         {/* Header */}
         <div className="bg-white border-b p-4 flex justify-between items-center">
           <h2 className="text-xl font-bold text-gray-800">Game Complete</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 cursor-pointer">
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -96,7 +98,7 @@ export default function ShareModal({
             <div className="flex justify-center gap-2 flex-wrap">
               <button
                 onClick={handleShare}
-                className="bg-alma-green text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-opacity-90 transition-colors w-full justify-center shadow-md"
+                className="bg-alma-green text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-opacity-90 transition-colors w-full justify-center shadow-md cursor-pointer"
               >
                 <Share2 className="w-5 h-5" />
                 Deel Resultaat

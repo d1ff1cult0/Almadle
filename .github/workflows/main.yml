@@ -17,6 +17,12 @@ jobs:
           # 2. Pull the latest code
           git pull origin main
 
-          # 3. Build and Start
+
+          # 3. Prepare Environment
+          # Create data directory for SQLite and ensure write permissions for the container user
+          mkdir -p data
+          chmod 777 data
+
+          # 4. Build and Start
           docker compose build --no-cache
           docker compose up -d

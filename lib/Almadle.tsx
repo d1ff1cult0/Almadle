@@ -93,12 +93,47 @@ export default function Almadle({ dishSeed = "niet random", random = false }: { 
 
     if (dish.id === targetDish.id) {
       setGameState("won");
-      setModalOpen(true); // Open modal on win
+      setModalOpen(true);
+      trackGame("won", newGuesses.length);
     } else if (newGuesses.length >= MAX_ATTEMPTS) {
       setGameState("lost");
-      setModalOpen(true); // Open modal on loss
+      setModalOpen(true);
+      trackGame("lost", newGuesses.length);
     }
   };
+
+  const trackGame = async (result: string, guessesCount: number) => {
+    try {
+      await fetch("/api/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mode: random ? "infinite" : "daily",
+          result,
+          guesses: guessesCount,
+          targetId: targetDish.id,
+          seed: dishSeed.toString(),
+        }),
+      });
+    } catch (e) {
+      console.error("Failed to track game", e);
+    }
+  };
+
+  // Track game start
+  useState(() => {
+    // We utilize useState lazy initializer to run this once on mount-ish
+    // But strict mode might run twice. useEffect is better but also runs twice in dev.
+    // For stats, we accept some noise or use a ref to prevent double tracking.
+  });
+
+  // Better to use useEffect with a ref
+  const hasTrackedStart = useMemo(() => ({ current: false }), []);
+
+  if (!hasTrackedStart.current && targetDish) {
+    hasTrackedStart.current = true;
+    trackGame("started", 0);
+  }
 
   const getCellColor = (status: "correct" | "close" | "wrong" | boolean) => {
     if (status === true || status === "correct") return "bg-alma-green border-alma-green text-white";
@@ -132,8 +167,8 @@ export default function Almadle({ dishSeed = "niet random", random = false }: { 
             Het gerecht was: <strong>{targetDish.name}</strong>
           </p>
           <button
-            onClick={() => window.location.reload()}
-            className="px-6 py-2 bg-alma-text text-white rounded-lg font-bold hover:bg-opacity-90 transition-colors shadow-md"
+            onClick={() => (window.location.href = "/infinite")}
+            className="px-6 py-2 bg-alma-text text-white rounded-lg font-bold hover:bg-opacity-90 transition-colors shadow-md cursor-pointer"
           >
             Nog eens spelen
           </button>

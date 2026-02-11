@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String @id @default(cuid())
+  username     String @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model GameResult {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  mode      String   // 'daily' or 'infinite'
+  result    String   // 'won', 'lost', 'abandoned'
+  guesses   Int
+  targetId  Int?     // ID of the dish being guessed
+  seed      String?  // Seed used for random generation
+}
